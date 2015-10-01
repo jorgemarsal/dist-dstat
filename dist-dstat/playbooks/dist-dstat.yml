@@ -1,0 +1,28 @@
+- hosts: all
+
+  tasks:
+
+  - name: Install dstat
+    action: "{{ ansible_pkg_mgr }} name=dstat state=present"
+    tags: setup
+    sudo: yes
+
+  - name: delete old csv file
+    file: path={{ csv_src }} state=absent
+    tags: start
+
+# do not change dstat arg position as it changes the csv col ordering
+  - name: start dstat
+    shell: python /usr/bin/dstat -cmdn --output {{ csv_src }}
+    async: 52560000
+    poll: 0
+    tags: start
+
+  - name: stop dstat
+    shell: kill -9 $(ps aux | grep -v grep|grep "python /usr/bin/dstat" | awk '{ print $2 }')
+    tags: stop
+    ignore_errors: yes
+
+  - name: fetch csvs
+    fetch: src={{ csv_src }} dest={{ csv_dest }} fail_on_missing=yes
+    tags: fetch
