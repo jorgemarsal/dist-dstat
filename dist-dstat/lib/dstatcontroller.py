@@ -5,7 +5,7 @@ from mycmd import *
 from mylogger import *
 
 class DstatController:
-    def __init__(self, nodes, setup=False):
+    def __init__(self, nodes, setup=False, drop_caches=False):
         """
         :param nodes (list): list of all the nodes in the cluster
         :return:
@@ -27,6 +27,13 @@ class DstatController:
                 run_ansible_cmd(self.playbook_cmd + ' --tags setup ')
             except CmdException as e:
                 log_error(e.output + e.err)
+                sys.exit(1)
+        if drop_caches:
+            log_green("Droping caches ...")
+            try:
+                run_ansible_cmd(self.playbook_cmd + ' --tags drop_caches ')
+            except CmdException as e:
+                log_error(e.output)
                 sys.exit(1)
 
 

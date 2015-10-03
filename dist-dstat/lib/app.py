@@ -15,6 +15,9 @@ def parse_command_line_args():
     parser.add_argument("-i", "--install-dstat", type=bool,
                         help="Install dstat on all the nodes", required=False, default=False)
 
+    parser.add_argument("-d", "--drop-caches", type=bool,
+                        help="Drop caches to make sure we read from disk", required=False, default=False)
+
     args = parser.parse_args()
     return args
 
@@ -43,7 +46,7 @@ Layout is:
 '''
 
 args = parse_command_line_args()
-dc = DstatController(args.nodes, args.install_dstat)
+dc = DstatController(args.nodes, args.install_dstat, args.drop_caches)
 
 log_green("Starting monitoring ...")
 dc.start_dstat()

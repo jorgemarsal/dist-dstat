@@ -2,6 +2,11 @@
 
   tasks:
 
+  - name: Drop caches
+    shell: sh -c 'echo 3 >/proc/sys/vm/drop_caches'
+    tags: drop_caches
+    sudo: yes
+
   - name: Install dstat
     action: "{{ ansible_pkg_mgr }} name=dstat state=present"
     tags: setup
