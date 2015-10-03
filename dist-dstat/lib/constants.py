@@ -1,8 +1,8 @@
 import os
 class Constants:
     CWD = os.path.dirname(os.path.realpath(__file__))
-    ANSIBLE_BIN_PATH = '%s/../ansible/bin/ansible'%(CWD)
-    ANSIBLE_PLAYBOOK_BIN_PATH = '%s/../ansible/bin/ansible-playbook'%(CWD)
+    ANSIBLE_BIN_PATH = '%s/../../ansible/bin/ansible'%(CWD)
+    ANSIBLE_PLAYBOOK_BIN_PATH = '%s/../../ansible/bin/ansible-playbook'%(CWD)
 
     # csv first lines are comments
     CSV_STARTING_INDEX = 7

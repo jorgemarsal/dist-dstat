@@ -46,7 +46,7 @@ def run_cmd(cmd, quiet=True, cwd=None):
 
 def run_ansible_cmd(cmd, quiet=True):
     cwd = os.path.dirname(os.path.realpath(__file__))
-    env = 'PYTHONPATH=%s/../ansible-1.9.3/lib/' % cwd
+    env = 'PYTHONPATH=%s/../../ansible-1.9.3/lib/' % cwd
 
-    output = run_cmd('%s %s/../ansible-1.9.3/bin/%s' % (env, cwd, cmd), quiet)
+    output = run_cmd('%s %s/../../ansible-1.9.3/bin/%s' % (env, cwd, cmd), quiet)
     return output

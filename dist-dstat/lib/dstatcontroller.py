@@ -26,7 +26,7 @@ class DstatController:
             try:
                 run_ansible_cmd(self.playbook_cmd + ' --tags setup ')
             except CmdException as e:
-                log_error(e.output)
+                log_error(e.output + e.err)
                 sys.exit(1)
 
 
@@ -34,14 +34,14 @@ class DstatController:
         try:
             run_ansible_cmd(self.playbook_cmd + ' -e csv_src=%s '%(Constants.CSV_SRC) + ' --tags start ')
         except CmdException as e:
-            log_error(e.output)
+            log_error(e.output + e.err)
             sys.exit(1)
 
     def stop_dstat(self):
         try:
             run_ansible_cmd(self.playbook_cmd + ' --tags stop ')
         except CmdException as e:
-            log_error(e.output)
+            log_error(e.output + e.err)
             sys.exit(1)
 
     def fetch_csvs(self):
@@ -52,7 +52,7 @@ class DstatController:
         try:
             run_ansible_cmd(self.playbook_cmd + ' -e csv_src=%s -e csv_dest=%s ' %(Constants.CSV_SRC,Constants.CSV_DEST) + '--tags fetch')
         except CmdException as e:
-            log_error(e.output)
+            log_error(e.output + e.err)
             sys.exit(1)
 
         def get_csvs(csvdir):
